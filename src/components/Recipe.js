@@ -1,7 +1,7 @@
 //individual recipe item:::
 import React from 'react';
 
-const API_KEY = "9e093c620e20f422c9f9a2280d2bb042";
+//const API_KEY = "9e093c620e20f422c9f9a2280d2bb042";
 
 class Recipe extends React.Component{
 
@@ -21,9 +21,9 @@ class Recipe extends React.Component{
 		//init fetch
 
 		//alternate call if there's CORS issue
-		const req = await fetch(`https://cors-anywhere.herokuapp.com/https://www.food2fork.com/api/search?key=${API_KEY}&q=${title}`);
+		//const req = await fetch(`https://cors-anywhere.herokuapp.com/https://www.food2fork.com/api/search?key=${process.env.REACT_APP_API_KEY}&q=${title}`);
 
-		//const api_call = await fetch(`https://www.food2fork.com/api/search?key=${API_KEY}&q=${recipeName}&count=10`);
+		const req = await fetch(`https://www.food2fork.com/api/search?key=${process.env.REACT_APP_API_KEY}&q=${title}&count=10`);
 
 		//create const to store + parse api data:::
 		const res = await req.json();

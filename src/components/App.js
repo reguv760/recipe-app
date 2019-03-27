@@ -1,11 +1,12 @@
 import React from 'react';
 import Form from './Form';
 import Recipes from './Recipes';
+import DotEnv from 'dotenv';
 
 
 import './App.css';
 
-const API_KEY = "9e093c620e20f422c9f9a2280d2bb042";
+//const API_KEY = "9e093c620e20f422c9f9a2280d2bb042";
 
 //API ::: https://www.food2fork.com/api/search?key={}&q=shredded%20chicken
 
@@ -15,6 +16,11 @@ class App extends React.Component{
 	//init state::
 	state = {
 		recipes: [],
+	}
+
+	componentDidMount = () =>
+	{
+		DotEnv.config();
 	}
 
 	getRecipe = async (e) =>
@@ -27,9 +33,9 @@ class App extends React.Component{
 		//init fetch
 
 		//alternate call if there's CORS issue
-		//const api_call = await fetch(`https://cors-anywhere.herokuapp.com/https://www.food2fork.com/api/search?key=${API_KEY}&q=${recipeName}&count=10`);
+		//const api_call = await fetch(`https://cors-anywhere.herokuapp.com/https://www.food2fork.com/api/search?key=${process.env.API_KEY}&q=${recipeName}&count=10`);
 
-		const api_call = await fetch(`https://www.food2fork.com/api/search?key=${API_KEY}&q=${recipeName}&count=10`);
+		const api_call = await fetch(`https://www.food2fork.com/api/search?key=${process.env.REACT_APP_API_KEY}&q=${recipeName}&count=10`);
 
 		//create const to store + parse api data:::
 		const data = await api_call.json()
