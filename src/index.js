@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-import App from './components/App';
+import Router from './components/Router';
 
-ReactDOM.render(<App />, document.querySelector('#root'));
+ReactDOM.render(<Router />, document.querySelector('#root'));
