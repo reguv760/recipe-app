@@ -12,6 +12,9 @@ const Recipes = props =>
 				{
 					//map function that parse each data
 					//then returns each item
+
+					//conditional if props.recipes is NOT defined
+					props.recipes ?
 					 props.recipes.map((recipe) => 
 					 {
 					 	return (
@@ -50,7 +53,10 @@ const Recipes = props =>
 					 			</div>
 					 		</div>
 					 	)
-					 })
+					}) : 
+							<div className="container" style={{ marginBottom:"2rem"}}>	
+								<p>Cannot load Recipe List</p>
+							</div>
 				}
 			</div>
 		

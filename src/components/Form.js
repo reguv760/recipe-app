@@ -1,7 +1,7 @@
 import React from 'react';
 
-/* getRecipe is passed from App.js and
-received in Form as a props */
+/* getRecipe is 'inherited' from App.js and
+received in Form as a props, which can be called from wtihin */
 const Form = props =>
 {
 	return(
