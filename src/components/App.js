@@ -8,7 +8,6 @@ class App extends React.Component{
 	
 	//init state::
 	state = {
-		connected: undefined,
 		recipes: [],
 	}
 
@@ -29,38 +28,22 @@ class App extends React.Component{
 		//alternate call if there's CORS issue
 		//const api_call = await fetch(`https://cors-anywhere.herokuapp.com/https://www.food2fork.com/api/search?key=${process.env.API_KEY}&q=${recipeName}&count=10`);
 
-		const api_call = await fetch(`https://www.food2fork.com/api/search?key=${process.env.REACT_APP_API_KEY}&q=${recipeName}&count=10`).then(this.handleErrors).then(response => console.log("connected") ).catch(error => this.setState({connected: false }) );
+		const api_call = await fetch(`https://www.food2fork.com/api/search?key=${process.env.REACT_APP_API_KEY}&q=${recipeName}&count=10`);
+
+		//const api_call = await fetch(`https://www.food2fork.com/api/search?key=${process.env.REACT_APP_API_KEY}&q=${recipeName}&count=10`).then(this.handleErrors).then(response => console.log("connected") ).catch(error => this.setState({connected: false }) );
 
 
-		if (api_call)
-		{
-			//create const to store + parse api data:::	
-			const data = await api_call.json()
 
-			//store data as an array in state
-			this.setState({ recipes: data.recipes, connected: true})
+		//create const to store + parse api data:::	
+		const data = await api_call.json();
+
+		//store data as an array in state
+		this.setState({ recipes: data.recipes });
 
 
-			console.log(this.state.recipes);
+		//console.log(this.state.recipes);
 
-		} else 
-		{
-			this.setState({ connected: false})
-			console.log("cannot access api");
-		}
 	}
-
-	//helper function for api_call
-	handleError = (response) =>
-	{
-		if (!response.ok)
-		{
-			throw Error(response.statusText);
-		}
-
-		return response;
-	}
-
 	render(){
 		return(
 			<div className="App">
@@ -70,7 +53,7 @@ class App extends React.Component{
 
 				<Form getRecipe={ this.getRecipe } />
 
-				{ this.state.connected ? <Recipes recipes={ this.state.recipes } /> : <p>Search for food or ingredient</p> }
+				<Recipes recipes={ this.state.recipes } />
 			
 				</div>
 		);

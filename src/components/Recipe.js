@@ -1,7 +1,7 @@
 //individual recipe item:::
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-//const API_KEY = "9e093c620e20f422c9f9a2280d2bb042";
 
 class Recipe extends React.Component{
 
@@ -10,8 +10,8 @@ class Recipe extends React.Component{
 		activeRecipe: [],
 	}
 
-	//lifecyce hook
-	componentDidmount = async () =>
+	//lifecycle hook
+	componentDidMount = async () =>
 	{
 		//copy + pasted from getRecipe() in App.js
 
@@ -23,19 +23,39 @@ class Recipe extends React.Component{
 		//alternate call if there's CORS issue
 		//const req = await fetch(`https://cors-anywhere.herokuapp.com/https://www.food2fork.com/api/search?key=${process.env.REACT_APP_API_KEY}&q=${title}`);
 
-		const req = await fetch(`https://www.food2fork.com/api/search?key=${process.env.REACT_APP_API_KEY}&q=${title}&count=10`);
+		const req = await fetch(`https://www.food2fork.com/api/search?key=${process.env.REACT_APP_API_KEY}&q=${title}`);
 
 		//create const to store + parse api data:::
 		const res = await req.json();
-		console.log(res.recipes[0]);
-	}
+
+		//grabs the first item in recipes to diplay:::
+		this.setState({ activeRecipe: res.recipes[0] });
+
+		console.log(this.state.activeRecipe);
+
+	} 
 
 	render(){
 
-		console.log(this.props);
+		const recipe = this.state.activeRecipe;
 
 		return(
-			<div>Yum!</div>
+			<div className="container">
+				{ this.state.activeRecipe !== 0 && 
+
+					<div className="active-recipe">
+						<h2 className="active-recipe__title">{ recipe.title }</h2>
+						<h4 className="active-recipe__publisher">Publisher: <a href={ recipe.publisher_url } target="_blank" rel="noopener noreferrer">{ recipe.publisher }</a></h4>
+						<img className="active-recipe__img"
+							src={ recipe.image_url } alt={ recipe.title } />
+
+						<p className="active-recipe__website">{ recipe.publisher_url }</p>
+
+						<button className="active-recipe__button">
+							<Link to="/">Go Home</Link></button>
+					</div>
+				}
+			</div>
 		);
 	}
 }
