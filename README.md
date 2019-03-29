@@ -2,6 +2,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Recipe App based on [Hamza Mirza](https://www.youtube.com/watch?v=PbJt7-a2274) tutorial which connects to Food2Fork API.
 
+Demo located at: [http://reguv760.github.io/recipe-app/](http://reguv760.github.io/recipe-app/).
+
 ## Features
 
 **React Router** is a component that dynamically generates URL's based on retreived data.<br>
