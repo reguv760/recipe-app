@@ -9,10 +9,10 @@ const Router = () =>
 	return(
 		<BrowserRouter>
 			<Switch>
-				<Route path="/" component={ App } exact />
+				<Route path={ `${process.env.PUBLIC_URL} + "/"`} component={ App } exact />
 
 				{ /* dynamic routing based on id */ }
-				<Route path="/recipe/:id" component={ Recipe } />
+				<Route path={ `${process.env.PUBLIC_URL} + "/recipe/:id"`} component={ Recipe } />
 			</Switch>
 		</BrowserRouter>
 	)
