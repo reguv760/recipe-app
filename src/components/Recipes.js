@@ -12,34 +12,51 @@ const Recipes = props =>
 				{
 					//map function that parse each data
 					//then returns each item
+
+					//conditional if props.recipes is NOT defined
+					props.recipes ?
 					 props.recipes.map((recipe) => 
 					 {
 					 	return (
-					 		<div key={ recipe.title } className="col-md-4" style={{ marginBottom:"2rem"}}>
-					 			<div className="recipes__box">
+					 		<div key={ recipe.recipe_id } className="col-md-4" style={{ marginBottom:"2rem"}}>
+					 			<div className="recipes">
 						 			<img 
 						 				className="recipes__box-img"
 						 				src={ recipe.image_url } 
 						 				alt={ recipe.title }
 						 			/>
 						 			<div className="recipe__text">
-						 				<h5 className="recipes__title"> 
-						 					{ /* itinary conditional = if/else statement */ }
+						 				<h5 className="recipe__text-title"> 
+						 					{ /* itinary conditional = if/else statement 
+
+												if (recipe.title.length) < 20 
+												{
+	 												`${recipe.title}`
+												} else 
+												{
+													`${recipe.title.substring(0,25)}...`
+												}
+
+						 					*/ }
 						 					{ recipe.title.length < 20 ? `${recipe.title}` : `${recipe.title.substring(0, 25)}...`} 
 						 				</h5>
-						 				<p className="recipes__subtitle">Publisher: <span>
+						 				<p className="recipe__text-subtitle">Publisher: <span>
 						 						{ recipe.publisher }
 						 					</span>
 						 				</p>
 						 			</div>
 
-						 			<button className="recipe_buttons">
-						 				View Recipe
+						 			<button className="recipes__buttons">
+						 				<Link 
+						 					to={{ pathname: `/recipe/${recipe.recipe_id}`, state: { recipe: recipe.title } }} >View Recipe</Link>
 						 			</button>
 					 			</div>
 					 		</div>
 					 	)
-					 })
+					}) : 
+							<div className="container" style={{ marginBottom:"2rem"}}>	
+								<p>Cannot load Recipe List</p>
+							</div>
 				}
 			</div>
 		
