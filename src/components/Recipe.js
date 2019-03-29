@@ -31,7 +31,7 @@ class Recipe extends React.Component{
 		//grabs the first item in recipes to diplay:::
 		this.setState({ activeRecipe: res.recipes[0] });
 
-		console.log(this.state.activeRecipe);
+		//console.log(this.state.activeRecipe);
 
 	} 
 
@@ -49,7 +49,12 @@ class Recipe extends React.Component{
 						<img className="active-recipe__img"
 							src={ recipe.image_url } alt={ recipe.title } />
 
-						<p className="active-recipe__website">{ recipe.publisher_url }</p>
+						<p className="active-recipe__website">Check out the recipe at: 
+							<a href={ recipe.publisher_url }
+								target="_blank" 
+								rel="noopener noreferrer"
+							>{ recipe.publisher_url }</a>
+						</p>
 
 						<button className="active-recipe__button">
 							<Link to="/">Go Home</Link></button>

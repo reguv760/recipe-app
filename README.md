@@ -23,8 +23,7 @@ Demo located at: [http://reguv760.github.io/recipe-app/](http://reguv760.github.
 ### `npm install gh-pages --save`
 
 After installation add the following line in package.json:
-
-### `"homepage": "http://<username>.github.io/<repo>"`
+`"homepage": "http://<username>.github.io/<repo>"`
 
 **HashRouter** is used instead of **BrowserRouter** in Router component to enable nested links deployed on GitHub via gh-pages.<br>
 
