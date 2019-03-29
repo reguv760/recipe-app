@@ -16,6 +16,19 @@ class App extends React.Component{
 	{
 		//init dotenv to process .env file
 		DotEnv.config();
+
+		//for localStorage
+		const json = localStorage.getItem("recipes");
+		const recipes = JSON.parse(json);
+		this.setState({ recipes }); //use if key + state are the same value
+	}
+
+	componentDidUpdate = () =>
+	{
+		//use local storage to store input value on return from Recipe.js
+		const recipes = JSON.stringify(this.state.recipes);
+
+		localStorage.setItem("recipes", recipes)
 	}
 
 	getRecipe = async (e) =>
