@@ -3,16 +3,18 @@ import { BrowserRouter, Switch, Route} from 'react-router-dom';
 
 import App from './App';
 import Recipe from './Recipe';
+import NoMatch from './NoMatch';
 
 const Router = () =>
 {
 	return(
-		<BrowserRouter>
+		<BrowserRouter basename={ process.env.REACT_APP_PUBLIC_URL } >
 			<Switch>
-				<Route path={ `${process.env.PUBLIC_URL} + "/"`} component={ App } exact />
+				<Route path={ "/"} component={ App } exact />
 
 				{ /* dynamic routing based on id */ }
-				<Route path={ `${process.env.PUBLIC_URL} + "/recipe/:id"`} component={ Recipe } />
+				<Route path={ "/recipe/:id"} component={ Recipe } />
+				<Route component={NoMatch} />
 			</Switch>
 		</BrowserRouter>
 	)
