@@ -16,6 +16,18 @@ Recipe App based on [Hamza Mirza](https://www.youtube.com/watch?v=PbJt7-a2274) t
 
 #### `npm install dotenv`
 
+**gh-pages** is a devDependency which builds and publishes website then deploys to your GitHub repo as a seperate branch. Configure URL location under Settings > GitHub Pages > Source: gh-pages branch
+
+### `npm install gh-pages --save`
+
+After installation add the following line in package.json:
+
+### `"homepage": "http://<username>.github.io/<repo>"`
+
+**HashRouter** is used instead of **BrowserRouter** in Router component to enable nested links deployed on GitHub via gh-pages.<br>
+
+#### `npm install dotenv`
+
 ## Available Scripts
 
 In the project directory, you can run:

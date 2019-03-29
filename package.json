@@ -1,6 +1,6 @@
 {
   "name": "recipe-app",
-  "homepage": "http://reguv760.github.io/recipe-app/",
+  "homepage": "http://reguv760.github.io/recipe-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
