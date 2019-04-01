@@ -9,24 +9,26 @@ class App extends React.Component{
 	//init state::
 	state = {
 		recipes: [],
-		connected: '',
-		storedPage: false,
 	}
 
 	componentDidMount = () =>
 	{
+		//localStorage.clear();
 		//init dotenv to process .env file
 		DotEnv.config();
+
+		const json = localStorage.getItem("recipes");
+		const recipes = JSON.parse(json);
+		this.setState({ recipes }); //use if key + state are the same value
+	
+
 
 		//for localStorage
 		//only load if !storedPage AND connected is true 
 		//this makes sure it reads from the localStorage AFTER api_call is connected
-		if (!this.state.storedPage && this.state.connected)
-		{
-			const json = localStorage.getItem("recipes");
-			const recipes = JSON.parse(json);
-			this.setState({ recipes: recipes, connected: 'home', storedPage: true }); //use if key + state are the same value
-		}
+		//if (!this.state.storedPage && this.state.connected === 'false')
+		//{
+				//}
 		
 	}
 
@@ -44,48 +46,30 @@ class App extends React.Component{
 		const recipeName = e.target.elements.recipeName.value;
 		e.preventDefault();
 
+		//init fetch
 
-		if (recipeName !== '')
-		{
+		//alternate call if there's CORS issue
+		//const api_call = await fetch(`https://cors-anywhere.herokuapp.com/https://www.food2fork.com/api/search?key=${process.env.API_KEY}&q=${recipeName}&count=10`);
 
-			//init fetch
+		const api_call = await fetch(`https://www.food2fork.com/api/search?key=${process.env.REACT_APP_API_KEY}&q=${recipeName}&count=10`);
 
-			//alternate call if there's CORS issue
-			//const api_call = await fetch(`https://cors-anywhere.herokuapp.com/https://www.food2fork.com/api/search?key=${process.env.API_KEY}&q=${recipeName}&count=10`);
-
-			const api_call = await fetch(`https://www.food2fork.com/api/search?key=${process.env.REACT_APP_API_KEY}&q=${recipeName}&count=10`).then(this.handleErrors);
-
-			//const api_call = await fetch(`https://www.food2fork.com/api/search?key=${process.env.REACT_APP_API_KEY}&q=${recipeName}&count=10`).then(this.handleErrors).then(response => console.log("connected") ).catch(error => this.setState({connected: false }) );
+		//const api_call = await fetch(`https://www.food2fork.com/api/search?key=${process.env.REACT_APP_API_KEY}&q=${recipeName}&count=10`).then(this.handleErrors).then(response => console.log("connected") ).catch(error => this.setState({connected: false }) );
 
 
-			//conditional if api_call is success
-			//define state values upon successful connection
-			if (!api_call)
-			{
-				//console.log("cannot connect to api");
-				this.setState({connected: 'false' })
-			} 	
+		//conditional if api_call is success
+		//define state values upon successful connection
+		// if (!api_call)
+		// {
+		// 	//console.log("cannot connect to api");
+		// 	this.setState({connected: 'false' })
+		// } 	
 
-			//create const to store + parse api data:::	
-			const data = await api_call.json();
+		//create const to store + parse api data:::	
+		const data = await api_call.json();
 
-			//store data as an array in state
-			this.setState({ recipes: data.recipes, connected: 'true', storedPage: false });
-		} else {
-			this.setState({ connected: 'empty_string' });
-		}
-		
-	}
-
-	//helper function for api_call
-	handleError = (response) =>
-	{
-		if (!response.ok)
-		{
-			throw Error(response.statusText);
-		}
-
-		return response;
+		//store data as an array in state
+		this.setState({ recipes: data.recipes });
+	
 	}
 
 	render(){
@@ -96,23 +80,8 @@ class App extends React.Component{
 				</header>
 
 				<Form getRecipe={ this.getRecipe } />
-
-				<Recipes recipes={ this.state.recipes } />
-				{  (() => 
-					{
-						switch(this.state.connected)
-						{
-							case 'true':
-								return <Recipes recipes={ this.state.recipes } />;
-							case 'false':						
-								return <p>Cannot connect to API </p>;
-							case 'empty_string':						
-								return <p>Search query cannot be blank...</p>;
-							default:
-								return <p>Search for recipes using any ingredient</p>;
-						}
-					})
-				() }
+				<Recipes recipes={ this.state.recipes } />;
+				
 				</div>
 		);
 	}

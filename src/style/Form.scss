@@ -10,7 +10,7 @@
   }
 
   &__button {
-    border: solid 2px $redOrange;
+    border: solid 2px $blueGrey;
     background: transparent;
     padding: 0.2rem 0.9rem;
     margin: 0 0.2rem;
@@ -21,7 +21,7 @@
     margin-left: 0.7rem;
 
     &:hover {
-      border: solid 2px $blueGrey;
+      border: solid 2px $lightBlue;
     }
   }
 

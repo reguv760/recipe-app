@@ -14,7 +14,7 @@ const Recipes = props =>
 					//then returns each item
 
 					//conditional if props.recipes is NOT defined
-					props.recipes ?
+				
 					 props.recipes.map((recipe) => 
 					 {
 					 	return (
@@ -48,15 +48,13 @@ const Recipes = props =>
 
 						 			<button className="recipes__buttons">
 						 				<Link 
-						 					to={{ pathname: `/recipe/${recipe.recipe_id}`, state: { recipe: recipe.title } }} >View Recipe</Link>
+						 					to={{ pathname: `/recipe/${recipe.recipe_id}`, state: { recipe: recipe.title } }} 
+						 					className="recipes__buttons-name">View Recipe</Link>
 						 			</button>
 					 			</div>
 					 		</div>
 					 	)
-					}) : 
-							<div className="container" style={{ marginBottom:"2rem"}}>	
-								<p>Cannot load Recipe List</p>
-							</div>
+					})
 				}
 			</div>
 		

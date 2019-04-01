@@ -49,7 +49,7 @@ class Recipe extends React.Component{
 						<img className="active-recipe__img"
 							src={ recipe.image_url } alt={ recipe.title } />
 
-						<p className="active-recipe__website">Check out the recipe at: 
+						<p className="active-recipe__website">Check out the recipe at: {''}
 							<a href={ recipe.publisher_url }
 								target="_blank" 
 								rel="noopener noreferrer"

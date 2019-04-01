@@ -13,7 +13,7 @@
     margin-left: 15px;
 
     &-title {
-      color: $redOrange;
+      color: $blueGrey;
       text-transform: uppercase;
       font-size: 1.1rem;
       padding: 1.8rem 0 0.2rem 0;
@@ -35,7 +35,7 @@
   }
 
   &__buttons {
-    border: solid 2px $redOrange;
+    border: solid 2px $blueGrey;
     background: transparent;
     padding: 0.4rem 0.6rem;
     margin: 0 0.2rem;
@@ -44,7 +44,9 @@
     text-transform: uppercase;
     font-weight: 500;
     margin-left: 0.7rem;
+
+    &-name {
+      color: $blueGrey;
+    }
   }
 }
-
-
