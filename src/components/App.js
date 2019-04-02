@@ -9,6 +9,7 @@ class App extends React.Component{
 	//init state::
 	state = {
 		recipes: [],
+		connected: false,
 	}
 
 	componentDidMount = () =>
@@ -17,25 +18,26 @@ class App extends React.Component{
 		//init dotenv to process .env file
 		DotEnv.config();
 
-		const json = localStorage.getItem("recipes");
-		const recipes = JSON.parse(json);
-		this.setState({ recipes }); //use if key + state are the same value
-	
+	 	if (!this.state.connected)
+	 	{
+	 		localStorage.clear();
+	 	} else 
+	 	{	 		
+		 	const json = localStorage.getItem("recipes");
+
+			const recipes = JSON.parse(json);
+			this.setState({ recipes }); //use if key + state are the same value
+		 	
+	 	}
 
 
-		//for localStorage
-		//only load if !storedPage AND connected is true 
-		//this makes sure it reads from the localStorage AFTER api_call is connected
-		//if (!this.state.storedPage && this.state.connected === 'false')
-		//{
-				//}
-		
 	}
 
 	componentDidUpdate = () =>
 	{
 		//use local storage to store input value on return from Recipe.js
 		const recipes = JSON.stringify(this.state.recipes);
+
 		localStorage.setItem("recipes", recipes);
 	}
 
@@ -55,20 +57,17 @@ class App extends React.Component{
 
 		//const api_call = await fetch(`https://www.food2fork.com/api/search?key=${process.env.REACT_APP_API_KEY}&q=${recipeName}&count=10`).then(this.handleErrors).then(response => console.log("connected") ).catch(error => this.setState({connected: false }) );
 
-
-		//conditional if api_call is success
-		//define state values upon successful connection
-		// if (!api_call)
-		// {
-		// 	//console.log("cannot connect to api");
-		// 	this.setState({connected: 'false' })
-		// } 	
-
 		//create const to store + parse api data:::	
 		const data = await api_call.json();
 
 		//store data as an array in state
-		this.setState({ recipes: data.recipes });
+		if (data.recipes !== null)
+		{
+			this.setState({ recipes: data.recipes, connected: true });
+		} else 
+		{
+			console.log("cannot connect to api");
+		}
 	
 	}
 
@@ -79,8 +78,12 @@ class App extends React.Component{
 					<h1 className="App__title">Recipe Search</h1>
 				</header>
 
-				<Form getRecipe={ this.getRecipe } />
-				<Recipes recipes={ this.state.recipes } />;
+				<Form getRecipe={ this.getRecipe } currentRecipe={ this.state.recipeName } />
+				<Recipes recipes={ this.state.recipes } />				
+
+				{ 
+					this.state.recipes.length === 0 && <p>Search recipes from any ingredient!</p>					
+				}				
 				
 				</div>
 		);
